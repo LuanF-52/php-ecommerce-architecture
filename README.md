@@ -63,6 +63,8 @@ $total = $discount->apply($subtotal);
 I am using PSR-4 to organize files and folders.
 ```
 App/
+     Database/
+        DbConnection.php
     Controller/
         ProductController.php
     Entity/
