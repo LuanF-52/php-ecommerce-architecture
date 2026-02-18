@@ -100,6 +100,8 @@ Each layer has a single responsibility:
 - **Repository**: Handles database communication, separated from business rules
 - **Shipping/Discount**: Contains domain logic with interfaces, implementations, and factories
 - **Controller**: Orchestrates the flow between layers
+- **Database**: Contains the connection class that creates PDO instances
+
 
 This separation makes the code easier to test, maintain, and extend.
 
