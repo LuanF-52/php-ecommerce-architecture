@@ -2,14 +2,14 @@
 
 namespace App\Entity;
 
-
 class Product
 {
     public function __construct(
         public readonly ?int $id,
         public readonly string $name,
         public readonly float $price,
-        private int $stock
+        private int $stock,
+        public readonly float $weight = 0
     ) {
         if (empty($name)) {
             throw new InvalidArgumentException("Name is required");
@@ -25,6 +25,11 @@ class Product
     public function getStock(): int
     {
         return $this->stock;
+    }
+
+    public function getweighth(): int
+    {
+        return $this->weight;
     }
 
     public function addStock(int $quantity): void

@@ -1,12 +1,12 @@
 <?php
 
 namespace App\Shipping;
- 
+
 class ShippingCalculatorFactory
-{   
+{
 
 private array $calculators = [
-        'post_office' => PostOfficeShipping::class,
+        'post_office' => PostShipping::class,
         'transport' => TransportShipping::class,
         'store_pickup' => StorePickupShipping::class,
     ];

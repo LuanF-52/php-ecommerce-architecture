@@ -1,4 +1,4 @@
-# PHP Procedural to OOP Refactoring
+# php-ecommerce-architecture
 
 This project demonstrates a refactoring journey from procedural PHP to object-oriented architecture. Built as part of my software architecture studies, it showcases clean code principles, design patterns, and testable code structure.
 
@@ -40,6 +40,10 @@ function calculate_discount($type, $value, $total) {
 
 ### Object-Oriented Approach (After)
 ```php
+// Order with multiple products
+$order = new Order($items, $shippingCalculator, $discount);
+$total = $order->getTotal();
+
 // Each shipping type is a separate class
 $calculator = $this->shippingFactory->create($type);
 $shipping = $calculator->calculate($weight);
@@ -63,13 +67,16 @@ $total = $discount->apply($subtotal);
 I am using PSR-4 to organize files and folders.
 ```
 App/
-     Database/
+    Database/
         DbConnection.php
     Controller/
         ProductController.php
+        OrderController.php
     Entity/
         Product.php
         Coupon.php
+        Order.php
+        OrderItem.php
     Repository/
         ProductRepositoryInterface.php
         ProductRepository.php
@@ -90,18 +97,18 @@ App/
         DiscountFactory.php
 Tests/
     TestCheckoutCalculatesCorrectTotal.php
+    TestOrderCheckout.php
 ```
 
 ### Why This Structure?
 
 Each layer has a single responsibility:
 
-- **Entity**: Represents business data and contains self-validation
+- **Entity**: Represents business data and contains self-validation (Product, Coupon, Order, OrderItem)
 - **Repository**: Handles database communication, separated from business rules
 - **Shipping/Discount**: Contains domain logic with interfaces, implementations, and factories
-- **Controller**: Orchestrates the flow between layers
+- **Controller**: Orchestrates the flow between layers (ProductController for CRUD, OrderController for checkout)
 - **Database**: Contains the connection class that creates PDO instances
-
 
 This separation makes the code easier to test, maintain, and extend.
 
@@ -113,10 +120,18 @@ This separation makes the code easier to test, maintain, and extend.
 
 **Repository Pattern** was used to separate database communication from business rules. It also has an interface, which allows me to swap implementations. For example, I use InMemoryRepository for tests without needing a real database.
 
+## Features
+
+- **Multiple Products per Order**: Order can contain multiple items with different quantities
+- **Automatic Weight Calculation**: Total weight is calculated from all OrderItems
+- **Flexible Shipping**: Strategy pattern allows different shipping calculations
+- **Discount System**: Support for fixed and percentage-based discounts via coupons
+- **Testable Architecture**: InMemory repositories enable testing without database
+
 ## How to Run
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/php-oop-refactoring.git
+git clone https://github.com/LuanF-52/php-ecommerce-architecture.git
 
 # Install dependencies
 composer install
@@ -129,6 +144,7 @@ composer dump-autoload
 ```bash
 # Run tests
 php Tests/TestCheckoutCalculatesCorrectTotal.php
+php Tests/TestOrderCheckout.php
 ```
 
 ## What I Learned
@@ -139,6 +155,7 @@ php Tests/TestCheckoutCalculatesCorrectTotal.php
 - How interfaces enable polymorphism and reduce coupling
 - How to write testable code using dependency injection
 - PSR-4 autoloading and project structure
+- How to model relationships between entities (Order, OrderItem, Product)
 
 These patterns make the code more secure, easier to test, and simpler to extend with new features.
 
@@ -146,5 +163,5 @@ These patterns make the code more secure, easier to test, and simpler to extend 
 
 Luan - PHP Developer transitioning to Software Architecture
 
-- LinkedIn: [your-linkedin]
-- GitHub: [your-github]
+- LinkedIn: [Luan Figueiredo](https://www.linkedin.com/in/luan-figueiredo-de-souza-987444146)
+- GitHub: [LuanF-52](https://github.com/LuanF-52)

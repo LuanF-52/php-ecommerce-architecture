@@ -21,7 +21,7 @@ class ProductController
     {
         $product = $this->productRepository->findById($productId);
         $coupon = null;
-        
+
         if ($couponCode)
         {
             $coupon = $this->couponRepository->findByCode($couponCode);

@@ -33,12 +33,13 @@ class ProductRepository implements ProductRepositoryInterface
     public function save(Product $product): void
     {
         $stmt = $this->connection->prepare(
-            "INSERT INTO products (name, price, stock) VALUES (?, ?, ?)"
+            "INSERT INTO products (name, price, stock, weight) VALUES (?, ?, ?)"
         );
         $stmt->execute([
             $product->name,
             $product->price,
-            $product->getStock()
+            $product->getStock(),
+            $product->getweighth()
         ]);
     }
 
